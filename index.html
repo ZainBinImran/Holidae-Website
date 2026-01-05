@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holidae | Affordable Holidays</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-umbrella-beach"></i>
+                    <span>Holidae</span>
+                </a>
+                <button class="menu-toggle">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="#destinations" class="nav-link">Destinations</a></li>
+                    <li><a href="#packages" class="nav-link">Packages</a></li>
+                    <li><a href="package.html" class="nav-link">Featured</a></li>
+                    <li><a href="booking.html" class="nav-link cta-button">Book Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Your Perfect Holiday</h1>
+            <p>Affordable packages to amazing destinations worldwide</p>
+            <a href="#packages" class="hero-button">Browse Packages</a>
+        </div>
+    </section>
+
+    <!-- Destinations -->
+    <section id="destinations" class="section">
+        <div class="container">
+            <h2>Popular Destinations</h2>
+            <p class="subtitle">Explore our most booked destinations</p>
+            
+            <div class="destinations-grid" id="destinations-container">
+                <!-- Destinations will load here dynamically -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading destinations...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages -->
+    <section id="packages" class="section bg-light">
+        <div class="container">
+            <h2>Holiday Packages</h2>
+            <p class="subtitle">Filter by category</p>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="budget">Budget</button>
+                <button class="filter-btn" data-filter="family">Family</button>
+                <button class="filter-btn" data-filter="luxury">Luxury</button>
+                <button class="filter-btn" data-filter="adventure">Adventure</button>
+            </div>
+
+            <div class="packages-grid" id="packages-container">
+                <!-- Packages will load here dynamically -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading packages...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+        <div class="container">
+            <h2>Customer Reviews</h2>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="rating">★★★★★</div>
+                    <p>"Amazing experience! Everything was perfectly organized."</p>
+                    <div class="author">
+                        <strong>Sarah Johnson</strong>
+                        <span>Bali Trip</span>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="rating">★★★★☆</div>
+                    <p>"Great value for money. Would book again!"</p>
+                    <div class="author">
+                        <strong>Michael Chen</strong>
+                        <span>Greece Holiday</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Holidae</h3>
+                    <p>Making holidays affordable since 2010.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="#destinations">Destinations</a>
+                    <a href="#packages">Packages</a>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <p>+44 20 1234 5678</p>
+                    <p>hello@holidae.com</p>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2023 Holidae. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Destination data (showing only 3 popular destinations)
+        const destinations = [
+            {
+                id: 1,
+                name: "Bali, Indonesia",
+                price: 999,
+                duration: "7-14 days",
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                description: "Experience tropical paradise with pristine beaches and vibrant culture"
+            },
+            {
+                id: 2,
+                name: "Santorini, Greece",
+                price: 1299,
+                duration: "5-10 days",
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                description: "Romantic sunsets and stunning cliffside views await in the Aegean Sea"
+            },
+            {
+                id: 3,
+                name: "Maldives",
+                price: 2199,
+                duration: "7-12 days",
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                description: "Luxury overwater bungalows and crystal clear waters for the ultimate escape"
+            }
+        ];
+
+        // Package data
+        const packages = [
+            {
+                id: 1,
+                name: "Bali Paradise",
+                category: "luxury",
+                basePrice: 999,
+                image: "https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                rating: 4.8,
+                description: "All-inclusive tropical getaway"
+            },
+            {
+                id: 2,
+                name: "Santorini Escape",
+                category: "luxury",
+                basePrice: 1299,
+                image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                rating: 4.9,
+                description: "Romantic Greek island holiday"
+            },
+            {
+                id: 3,
+                name: "Maldives Luxury",
+                category: "luxury",
+                basePrice: 2199,
+                image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                rating: 4.7,
+                description: "Overwater bungalow experience"
+            },
+            {
+                id: 4,
+                name: "Thai Adventure",
+                category: "adventure",
+                basePrice: 699,
+                image: "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                rating: 4.5,
+                description: "Explore Thailand's best spots"
+            },
+            {
+                id: 5,
+                name: "Family Spain",
+                category: "family",
+                basePrice: 899,
+                image: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                rating: 4.6,
+                description: "Perfect for family fun"
+            },
+            {
+                id: 6,
+                name: "Budget Portugal",
+                category: "budget",
+                basePrice: 499,
+                image: "https://travelwandergrow.com/wp-content/uploads/2023/10/Historical-Sites-in-Portugal-scaled.jpeg",
+                rating: 4.3,
+                description: "Affordable European escape"
+            }
+        ];
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target) && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Load Destinations
+            if (document.getElementById('destinations-container')) {
+                loadDestinations();
+            }
+            
+            // Load Packages
+            if (document.getElementById('packages-container')) {
+                loadPackages('all');
+                setupFilterButtons();
+            }
+        });
+
+        // Load Destinations
+        function loadDestinations() {
+            const container = document.getElementById('destinations-container');
+            if (!container) return;
+            
+            // Clear loading message
+            container.innerHTML = '';
+            
+            destinations.forEach(destination => {
+                const card = createDestinationCard(destination);
+                container.appendChild(card);
+            });
+        }
+
+        function createDestinationCard(destination) {
+            const div = document.createElement('div');
+            div.className = 'destination-card';
+            div.innerHTML = `
+                <div class="destination-image">
+                    <img src="${destination.image}" alt="${destination.name}" loading="lazy">
+                    <div class="price-tag">From £${destination.price}</div>
+                </div>
+                <h3>${destination.name}</h3>
+                <p>${destination.duration} • ${destination.rating}/5 rating</p>
+                <a href="package.html?id=${destination.id}" class="btn-view">View Details</a>
+            `;
+            return div;
+        }
+
+        // Load and Filter Packages
+        function loadPackages(filter = 'all') {
+            const container = document.getElementById('packages-container');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const filteredPackages = filter === 'all' 
+                ? packages 
+                : packages.filter(p => p.category === filter);
+            
+            if (filteredPackages.length === 0) {
+                container.innerHTML = '<p class="no-packages">No packages found in this category.</p>';
+                return;
+            }
+            
+            filteredPackages.forEach(pkg => {
+                const card = createPackageCard(pkg);
+                container.appendChild(card);
+            });
+        }
+
+        function createPackageCard(pkg) {
+            const div = document.createElement('div');
+            div.className = 'package-card';
+            div.innerHTML = `
+                <img src="${pkg.image}" alt="${pkg.name}" loading="lazy">
+                <div class="package-info">
+                    <div class="package-header">
+                        <h3>${pkg.name}</h3>
+                        <div class="package-price">From £${pkg.basePrice}</div>
+                    </div>
+                    <p class="package-description">${pkg.description}</p>
+                    <div class="package-meta">
+                        <span><i class="fas fa-star"></i> ${pkg.rating}/5</span>
+                        <span class="package-category ${pkg.category}">${pkg.category}</span>
+                    </div>
+                    <a href="package.html?id=${pkg.id}" class="btn-view">View Details</a>
+                </div>
+            `;
+            return div;
+        }
+
+        function setupFilterButtons() {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.dataset.filter;
+                    loadPackages(filter);
+                });
+            });
+        }
+
+        // Add some CSS for loading spinner
+        const style = document.createElement('style');
+        style.textContent = `
+            .loading {
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 40px;
+            }
+            
+            .spinner {
+                width: 40px;
+                height: 40px;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #0077cc;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin: 0 auto 15px;
+            }
+            
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            .loading p {
+                color: #666;
+                font-size: 1rem;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Booking | Holidae</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-umbrella-beach"></i>
+                    <span>Holidae</span>
+                </a>
+                <div class="booking-steps">
+                    <span class="step active">1. Details</span>
+                    <span class="step">2. Payment</span>
+                    <span class="step">3. Confirm</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Complete Your Booking</h1>
+        
+        <div class="booking-container">
+            <div class="booking-form-container">
+                <!-- Step 1: Traveler Details -->
+                <div class="booking-step active" id="step1">
+                    <h2>Traveler Details</h2>
+                    
+                    <form id="traveler-form">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="full-name" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="phone" pattern="[0-9]*" required>
+                                <small>Numbers only, no spaces or dashes</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Special Requests</label>
+                            <textarea id="requests" rows="3"></textarea>
+                        </div>
+                        
+                        <button type="button" class="btn-next" data-next="step2">
+                            Continue to Payment →
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="booking-step" id="step2" style="display: none;">
+                    <h2>Payment Details</h2>
+                    
+                    <div class="payment-method">
+                        <div class="method-card active">
+                            <i class="far fa-credit-card"></i>
+                            <span>Credit/Debit Card</span>
+                        </div>
+                    </div>
+                    
+                    <form id="payment-form">
+                        <div class="form-group">
+                            <label>Card Number *</label>
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Expiry Date *</label>
+                                <input type="text" id="expiry" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label>CVV *</label>
+                                <input type="text" id="cvv" placeholder="123" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Name on Card *</label>
+                            <input type="text" id="card-name" required>
+                        </div>
+                        
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="save-card">
+                            <label for="save-card">Save card for future bookings</label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-back" data-back="step1">
+                                ← Back
+                            </button>
+                            <button type="button" class="btn-next" data-next="step3">
+                                Review Booking →
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="booking-step" id="step3" style="display: none;">
+                    <h2>Confirm Booking</h2>
+                    
+                    <div class="confirmation-card">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        
+                        <h3>Review Your Booking</h3>
+                        
+                        <div class="booking-summary">
+                            <div class="summary-item">
+                                <span>Package:</span>
+                                <span id="summary-package">Bali Paradise (7 Nights)</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Travel Dates:</span>
+                                <span id="summary-dates">Dec 15 - Dec 22, 2023</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Travelers:</span>
+                                <span id="summary-travelers">2 Adults</span>
+                            </div>
+                            <div class="summary-item total">
+                                <span>Total Amount:</span>
+                                <span id="summary-total">£2,198.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="terms">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">I agree to the Terms & Conditions</label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-back" data-back="step2">
+                                ← Back
+                            </button>
+                            <button type="button" class="btn-confirm" id="confirm-booking">
+                                <i class="fas fa-lock"></i> Confirm & Pay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Message -->
+                <div id="success-message" style="display: none;">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Booking Confirmed!</h2>
+                    <p>Thank you for booking with Holidae.</p>
+                    <p>Booking Reference: <strong>HLD-<span id="booking-ref">12345</span></strong></p>
+                    <p>A confirmation email has been sent.</p>
+                    <a href="index.html" class="btn-home">← Back to Home</a>
+                </div>
+            </div>
+
+            <!-- Booking Summary Sidebar -->
+            <div class="booking-summary-sidebar">
+                <div class="summary-card">
+                    <h3>Booking Summary</h3>
+                    
+                    <div class="package-info">
+                        <img src="https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300" 
+                             alt="Bali" id="summary-image">
+                        <div>
+                            <h4 id="summary-package-name">Bali Paradise</h4>
+                            <p><i class="fas fa-calendar-alt"></i> <span id="summary-duration">7 Nights</span> | <span id="summary-travelers-count">2 Adults</span></p>
+                            <p><i class="far fa-calendar"></i> <span id="summary-travel-dates">Dec 15 - Dec 22, 2023</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="price-details">
+                        <div class="price-row">
+                            <span>Base Price:</span>
+                            <span id="sidebar-base">£1,998.00</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Taxes & Fees:</span>
+                            <span id="sidebar-taxes">£200.00</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total:</span>
+                            <span id="sidebar-total">£2,198.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="included">
+                        <h4>Included:</h4>
+                        <ul id="included-list">
+                            <li>✓ Return Flights</li>
+                            <li>✓ 4-star Hotel</li>
+                            <li>✓ Daily Meals</li>
+                            <li>✓ Guided Tours</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="support">
+                        <p><i class="fas fa-phone"></i> Need help? Call 020 7946 0958</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p><i class="fas fa-lock"></i> Your payment is secure and encrypted.</p>
+            <p>&copy; 2023 Holidae. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Package data for booking page
+        const packages = {
+            '1': {
+                name: "Bali Paradise",
+                image: "https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                included: ["Return Flights", "4-star Hotel", "Daily Meals", "Guided Tours", "Travel Insurance", "Airport Transfers"]
+            },
+            '2': {
+                name: "Santorini Escape",
+                image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                included: ["Flights to Athens", "Cliffside Hotel", "Daily Breakfast", "Sunset Cruise", "Wine Tasting", "Ferry Transfers"]
+            },
+            '3': {
+                name: "Maldives Luxury",
+                image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                included: ["Flights to Male", "Overwater Bungalow", "All Meals", "Snorkeling Gear", "Spa Credit", "Speedboat Transfers"]
+            },
+            '4': {
+                name: "Thai Adventure",
+                image: "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                included: ["Flights to Bangkok", "3-star Hotels", "Breakfast Daily", "Temple Tours", "Elephant Sanctuary", "Internal Transport"]
+            },
+            '5': {
+                name: "Family Spain",
+                image: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                included: ["Flights to Barcelona", "Family Resort", "All Meals", "Kids Club Access", "Water Park Tickets", "Family Activities"]
+            },
+            '6': {
+                name: "Budget Portugal",
+                image: "https://images.unsplash.com/photo-1518693800412-ad92111e1d2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+                included: ["Flights to Lisbon", "Budget Hotel", "Breakfast Included", "City Tour", "Transport Pass", "Beach Transfers"]
+            }
+        };
+
+        // Debug function to check stored data
+        function debugStoredData() {
+            console.log('--- DEBUG: Stored Session Data ---');
+            console.log('Package ID:', sessionStorage.getItem('selectedPackageId'));
+            console.log('Adults:', sessionStorage.getItem('bookingAdults'));
+            console.log('Children:', sessionStorage.getItem('bookingChildren'));
+            console.log('Duration:', sessionStorage.getItem('holidayDuration'));
+            console.log('Base Price:', sessionStorage.getItem('bookingBasePrice'));
+            console.log('Taxes:', sessionStorage.getItem('bookingTaxes'));
+            console.log('Total Price:', sessionStorage.getItem('bookingTotalPrice'));
+            console.log('Start Date:', sessionStorage.getItem('holidayStartDate'));
+            console.log('End Date:', sessionStorage.getItem('holidayEndDate'));
+            console.log('Package Name:', sessionStorage.getItem('selectedPackageName'));
+            console.log('Package Included:', sessionStorage.getItem('selectedPackageIncluded'));
+            console.log('--- END DEBUG ---');
+        }
+
+        // Function to load all booking data from sessionStorage
+        function loadAllBookingData() {
+            return {
+                packageId: sessionStorage.getItem('selectedPackageId') || '1',
+                packageName: sessionStorage.getItem('selectedPackageName') || 'Bali Paradise',
+                packageImage: sessionStorage.getItem('selectedPackageImage') || packages['1'].image,
+                included: JSON.parse(sessionStorage.getItem('selectedPackageIncluded') || '[]') || packages['1'].included,
+                startDate: sessionStorage.getItem('holidayStartDate'),
+                duration: sessionStorage.getItem('holidayDuration') || '7',
+                endDate: sessionStorage.getItem('holidayEndDate'),
+                adults: sessionStorage.getItem('bookingAdults') || '2',
+                children: sessionStorage.getItem('bookingChildren') || '0',
+                basePrice: sessionStorage.getItem('bookingBasePrice') || '1998',
+                taxes: sessionStorage.getItem('bookingTaxes') || '200',
+                totalPrice: sessionStorage.getItem('bookingTotalPrice') || '2198'
+            };
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Debug: Show what's in session storage
+            debugStoredData();
+            
+            // Load all booking data
+            const bookingData = loadAllBookingData();
+            const packageData = packages[bookingData.packageId] || packages['1'];
+            
+            // Calculate traveler text
+            const adultsInt = parseInt(bookingData.adults);
+            const childrenInt = parseInt(bookingData.children);
+            const travelersText = `${adultsInt} Adult${adultsInt !== 1 ? 's' : ''}${childrenInt > 0 ? `, ${childrenInt} Child${childrenInt !== 1 ? 'ren' : ''}` : ''}`;
+            
+            // Update booking summary with ALL data
+            updateBookingSummary(
+                packageData, 
+                bookingData.startDate, 
+                bookingData.duration, 
+                bookingData.endDate,
+                travelersText,
+                adultsInt,
+                childrenInt,
+                bookingData.basePrice,
+                bookingData.taxes,
+                bookingData.totalPrice
+            );
+            
+            // Log for debugging
+            console.log('Loaded booking data:', {
+                packageName: bookingData.packageName,
+                adults: bookingData.adults,
+                children: bookingData.children,
+                duration: bookingData.duration,
+                basePrice: bookingData.basePrice,
+                taxes: bookingData.taxes,
+                totalPrice: bookingData.totalPrice,
+                travelersText: travelersText
+            });
+            
+            // Step Navigation with Validation
+            const nextButtons = document.querySelectorAll('.btn-next');
+            const backButtons = document.querySelectorAll('.btn-back');
+            
+            nextButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const nextStep = btn.dataset.next;
+                    const currentStep = btn.closest('.booking-step').id;
+                    
+                    if (validateStep(currentStep)) {
+                        navigateToStep(nextStep);
+                    }
+                });
+            });
+            
+            backButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const prevStep = btn.dataset.back;
+                    navigateToStep(prevStep);
+                });
+            });
+            
+            // Phone number validation
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+            
+            // Confirm Booking Button
+            const confirmBtn = document.getElementById('confirm-booking');
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', processBooking);
+            }
+        });
+
+        // Updated function to update ALL booking summary sections
+        function updateBookingSummary(packageData, startDate, duration, endDate, travelersText, adults, children, basePrice, taxes, totalPrice) {
+            // Update package info
+            const packageName = document.getElementById('summary-package-name');
+            const packageImage = document.getElementById('summary-image');
+            const includedList = document.getElementById('included-list');
+            
+            if (packageName) packageName.textContent = packageData.name;
+            if (packageImage) packageImage.src = packageData.image;
+            if (includedList) {
+                includedList.innerHTML = packageData.included.map(item => `<li>✓ ${item}</li>`).join('');
+            }
+            
+            // Update dates if available
+            if (startDate && endDate && duration) {
+                const summaryDates = document.getElementById('summary-dates');
+                const summaryDuration = document.getElementById('summary-duration');
+                const summaryTravelDates = document.getElementById('summary-travel-dates');
+                
+                if (summaryDates) {
+                    const formattedStartDate = formatDate(new Date(startDate));
+                    summaryDates.textContent = `${formattedStartDate} - ${endDate}`;
+                }
+                
+                if (summaryDuration) {
+                    summaryDuration.textContent = `${duration} Nights`;
+                }
+                
+                if (summaryTravelDates) {
+                    const formattedStartDate = formatDate(new Date(startDate));
+                    summaryTravelDates.textContent = `${formattedStartDate} - ${endDate}`;
+                }
+            }
+            
+            // Update traveler counts
+            const travelersCount = document.getElementById('summary-travelers-count');
+            const summaryTravelers = document.getElementById('summary-travelers');
+            
+            if (travelersCount) travelersCount.textContent = travelersText;
+            if (summaryTravelers) summaryTravelers.textContent = travelersText;
+            
+            // Update prices
+            const sidebarBase = document.getElementById('sidebar-base');
+            const sidebarTaxes = document.getElementById('sidebar-taxes');
+            const sidebarTotal = document.getElementById('sidebar-total');
+            const summaryTotal = document.getElementById('summary-total');
+            const confirmPackage = document.getElementById('summary-package');
+            
+            if (sidebarBase) sidebarBase.textContent = `£${parseFloat(basePrice).toFixed(2)}`;
+            if (sidebarTaxes) sidebarTaxes.textContent = `£${parseFloat(taxes).toFixed(2)}`;
+            if (sidebarTotal) sidebarTotal.textContent = `£${parseFloat(totalPrice).toFixed(2)}`;
+            if (summaryTotal) summaryTotal.textContent = `£${parseFloat(totalPrice).toFixed(2)}`;
+            
+            // Update confirmation step
+            if (confirmPackage) {
+                confirmPackage.textContent = `${packageData.name} (${duration || '7'} Nights)`;
+            }
+            
+            // Also update confirmation step dates
+            const confirmDates = document.getElementById('summary-dates');
+            if (confirmDates && startDate && endDate) {
+                const formattedStartDate = formatDate(new Date(startDate));
+                confirmDates.textContent = `${formattedStartDate} - ${endDate}`;
+            }
+        }
+
+        function formatDate(date) {
+            if (!(date instanceof Date) || isNaN(date)) {
+                return 'Invalid Date';
+            }
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function navigateToStep(stepId) {
+            document.querySelectorAll('.booking-step').forEach(step => {
+                step.style.display = 'none';
+            });
+            
+            const step = document.getElementById(stepId);
+            if (step) {
+                step.style.display = 'block';
+                
+                // Update step indicator
+                document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+                const stepNumber = stepId.replace('step', '');
+                const stepIndicator = document.querySelector(`.step:nth-child(${stepNumber})`);
+                if (stepIndicator) {
+                    stepIndicator.classList.add('active');
+                }
+            }
+        }
+
+        function validateStep(stepId) {
+            let isValid = true;
+            const step = document.getElementById(stepId);
+            
+            if (!step) return false;
+            
+            // Clear previous errors
+            step.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+            step.querySelectorAll('.error-message').forEach(el => el.remove());
+            
+            if (stepId === 'step1') {
+                const requiredFields = [
+                    document.getElementById('full-name'),
+                    document.getElementById('email'),
+                    document.getElementById('phone')
+                ];
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        showError(field, 'This field is required');
+                        isValid = false;
+                    }
+                });
+                
+                // Email validation
+                const email = document.getElementById('email');
+                if (email.value && !isValidEmail(email.value)) {
+                    showError(email, 'Please enter a valid email');
+                    isValid = false;
+                }
+                
+                // Phone validation
+                const phone = document.getElementById('phone');
+                if (phone.value && !/^\d{10,15}$/.test(phone.value)) {
+                    showError(phone, 'Phone number must be 10-15 digits');
+                    isValid = false;
+                }
+                
+            } else if (stepId === 'step2') {
+                const requiredFields = [
+                    document.getElementById('card-number'),
+                    document.getElementById('expiry'),
+                    document.getElementById('cvv'),
+                    document.getElementById('card-name')
+                ];
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        showError(field, 'This field is required');
+                        isValid = false;
+                    }
+                });
+                
+                // Card number validation
+                const cardNumber = document.getElementById('card-number');
+                if (cardNumber.value) {
+                    const cleanCard = cardNumber.value.replace(/\s/g, '');
+                    if (!/^\d{16}$/.test(cleanCard)) {
+                        showError(cardNumber, 'Card number must be 16 digits');
+                        isValid = false;
+                    }
+                }
+                
+                // Expiry date validation
+                const expiry = document.getElementById('expiry');
+                if (expiry.value && !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry.value)) {
+                    showError(expiry, 'Please enter in MM/YY format');
+                    isValid = false;
+                }
+                
+                // CVV validation
+                const cvv = document.getElementById('cvv');
+                if (cvv.value && !/^\d{3,4}$/.test(cvv.value)) {
+                    showError(cvv, 'CVV must be 3-4 digits');
+                    isValid = false;
+                }
+                
+            } else if (stepId === 'step3') {
+                const termsCheckbox = document.getElementById('terms');
+                
+                if (!termsCheckbox.checked) {
+                    showError(termsCheckbox, 'You must agree to the Terms & Conditions');
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+
+        function showError(field, message) {
+            field.classList.add('error');
+            
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            errorMsg.textContent = message;
+            errorMsg.style.color = '#dc3545';
+            errorMsg.style.fontSize = '0.85rem';
+            errorMsg.style.marginTop = '5px';
+            
+            field.parentNode.appendChild(errorMsg);
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function processBooking() {
+            if (!validateStep('step3')) {
+                return;
+            }
+            
+            const confirmBtn = document.getElementById('confirm-booking');
+            const originalText = confirmBtn.innerHTML;
+            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            confirmBtn.disabled = true;
+            
+            // Get all booking data
+            const bookingData = loadAllBookingData();
+            const travelerData = {
+                name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                requests: document.getElementById('requests').value
+            };
+            
+            // Create complete booking record
+            const completeBooking = {
+                ...bookingData,
+                ...travelerData,
+                bookingDate: new Date().toISOString(),
+                paymentStatus: 'completed'
+            };
+            
+            setTimeout(() => {
+                const bookingRef = 'HLD-' + Math.floor(10000 + Math.random() * 90000);
+                const bookingRefElement = document.getElementById('booking-ref');
+                if (bookingRefElement) {
+                    bookingRefElement.textContent = bookingRef;
+                }
+                
+                // Store booking confirmation
+                completeBooking.bookingReference = bookingRef;
+                sessionStorage.setItem('lastBooking', JSON.stringify(completeBooking));
+                
+                document.querySelectorAll('.booking-step').forEach(step => {
+                    step.style.display = 'none';
+                });
+                
+                const successMsg = document.getElementById('success-message');
+                if (successMsg) {
+                    successMsg.style.display = 'block';
+                }
+                
+                confirmBtn.innerHTML = originalText;
+                confirmBtn.disabled = false;
+                
+                // Clear booking data (optional - you might want to keep it for user convenience)
+                // clearBookingData();
+                
+                console.log('Booking confirmed:', completeBooking);
+            }, 2000);
+        }
+
+        // Optional: Clear booking data after successful booking
+        function clearBookingData() {
+            const keysToRemove = [
+                'selectedPackageId',
+                'holidayStartDate',
+                'holidayDuration',
+                'holidayEndDate',
+                'bookingAdults',
+                'bookingChildren',
+                'bookingBasePrice',
+                'bookingTaxes',
+                'bookingTotalPrice',
+                'selectedPackageName',
+                'selectedPackageImage',
+                'selectedPackageIncluded'
+            ];
+            
+            keysToRemove.forEach(key => {
+                sessionStorage.removeItem(key);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Details | Holidae</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-umbrella-beach"></i>
+                    <span>Holidae</span>
+                </a>
+                <button class="menu-toggle">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#destinations" class="nav-link">Destinations</a></li>
+                    <li><a href="index.html#packages" class="nav-link">Packages</a></li>
+                    <li><a href="package.html" class="nav-link active">Featured</a></li>
+                    <li><a href="booking.html" class="nav-link cta-button">Book Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Package details will be loaded dynamically by JavaScript -->
+        <div id="package-container">
+            <!-- Loading message -->
+            <div class="loading" id="loading-message">
+                <div class="spinner"></div>
+                <p>Loading package details...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Holidae. All rights reserved.</p>
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </footer>
+
+    <script>
+        // Get package ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const packageId = urlParams.get('id') || '1';
+        
+        // Package data
+        const packages = {
+            '1': {
+                name: "Bali Paradise",
+                category: "luxury",
+                basePrice: 999,
+                image: "https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200",
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200",
+                    "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200",
+                    "https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=200"
+                ],
+                rating: 4.8,
+                duration: "7-14 Days",
+                location: "Bali, Indonesia",
+                description: "All-inclusive tropical getaway",
+                included: [
+                    "Return flights",
+                    "7 nights in 4-star hotel",
+                    "Daily breakfast & dinner",
+                    "Airport transfers",
+                    "Guided tours",
+                    "Travel insurance"
+                ],
+                itinerary: [
+                    "Day 1: Arrival & check-in",
+                    "Day 2-3: Beach relaxation & local tours",
+                    "Day 4-6: Cultural tours & activities",
+                    "Day 7: Free day & departure"
+                ],
+                durations: [
+                    {nights: 7, price: 999},
+                    {nights: 10, price: 1299},
+                    {nights: 14, price: 1599}
+                ]
+            },
+            '2': {
+                name: "Santorini Escape",
+                category: "luxury",
+                basePrice: 1299,
+                image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200",
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200",
+                    "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=200"
+                ],
+                rating: 4.9,
+                duration: "5-10 Days",
+                location: "Santorini, Greece",
+                description: "Romantic Greek island holiday",
+                included: [
+                    "Return flights to Athens",
+                    "5 nights in cliffside hotel",
+                    "Daily breakfast",
+                    "Ferry to Santorini",
+                    "Sunset cruise",
+                    "Wine tasting tour"
+                ],
+                itinerary: [
+                    "Day 1: Arrival in Athens, transfer to hotel",
+                    "Day 2: Ferry to Santorini, check-in",
+                    "Day 3-4: Explore Oia & Fira villages",
+                    "Day 5: Sunset cruise",
+                    "Day 6: Wine tasting & departure"
+                ],
+                durations: [
+                    {nights: 5, price: 1299},
+                    {nights: 7, price: 1599},
+                    {nights: 10, price: 1999}
+                ]
+            },
+            '3': {
+                name: "Maldives Luxury",
+                category: "luxury",
+                basePrice: 2199,
+                image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200",
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=200",
+                    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200"
+                ],
+                rating: 4.7,
+                duration: "7-12 Days",
+                location: "Maldives",
+                description: "Overwater bungalow experience",
+                included: [
+                    "Return flights to Male",
+                    "7 nights in overwater bungalow",
+                    "All-inclusive meals & drinks",
+                    "Speedboat transfers",
+                    "Snorkeling equipment",
+                    "Spa credit"
+                ],
+                itinerary: [
+                    "Day 1: Arrival in Male, speedboat to resort",
+                    "Day 2-6: Relaxation, snorkeling, spa",
+                    "Day 7: Water sports & activities",
+                    "Day 8: Departure"
+                ],
+                durations: [
+                    {nights: 7, price: 2199},
+                    {nights: 10, price: 2899},
+                    {nights: 14, price: 3599}
+                ]
+            },
+            '4': {
+                name: "Thai Adventure",
+                category: "adventure",
+                basePrice: 699,
+                image: "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200",
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=200",
+                    "https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200"
+                ],
+                rating: 4.5,
+                duration: "7-10 Days",
+                location: "Thailand",
+                description: "Explore Thailand's best spots",
+                included: [
+                    "Return flights to Bangkok",
+                    "10 nights in 3-star hotels",
+                    "Breakfast daily",
+                    "Internal transport",
+                    "Temple tours",
+                    "Elephant sanctuary visit"
+                ],
+                itinerary: [
+                    "Day 1-3: Bangkok city tour",
+                    "Day 4-6: Chiang Mai cultural experience",
+                    "Day 7-9: Phuket beach time",
+                    "Day 10: Return to Bangkok & departure"
+                ],
+                durations: [
+                    {nights: 7, price: 699},
+                    {nights: 10, price: 899},
+                    {nights: 14, price: 1199}
+                ]
+            },
+            '5': {
+                name: "Family Spain",
+                category: "family",
+                basePrice: 899,
+                image: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200",
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1543783207-ec64e4d95325?ixlib=rb-4.0.3&auto=format&fit=crop&w=200",
+                    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=200"
+                ],
+                rating: 4.6,
+                duration: "7-10 Days",
+                location: "Costa Brava, Spain",
+                description: "Perfect for family fun",
+                included: [
+                    "Return flights to Barcelona",
+                    "7 nights in family resort",
+                    "All meals included",
+                    "Kids club access",
+                    "Water park tickets",
+                    "Family activities"
+                ],
+                itinerary: [
+                    "Day 1: Arrival & resort check-in",
+                    "Day 2-3: Beach days & pool time",
+                    "Day 4: Water park visit",
+                    "Day 5-6: Family tours & activities",
+                    "Day 7: Free day & departure"
+                ],
+                durations: [
+                    {nights: 7, price: 899},
+                    {nights: 10, price: 1199},
+                    {nights: 14, price: 1499}
+                ]
+            },
+            '6': {
+                name: "Budget Portugal",
+                category: "budget",
+                basePrice: 499,
+                image: "https://travelwandergrow.com/wp-content/uploads/2023/10/Historical-Sites-in-Portugal-scaled.jpeg",
+                thumbnails: [
+                    "https://travelwandergrow.com/wp-content/uploads/2023/10/Historical-Sites-in-Portugal-scaled.jpeg",
+                    "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200"
+                ],
+                rating: 4.3,
+                duration: "5-7 Days",
+                location: "Lisbon, Portugal",
+                description: "Affordable European escape",
+                included: [
+                    "Return flights to Lisbon",
+                    "5 nights in budget hotel",
+                    "Breakfast included",
+                    "City tour",
+                    "Public transport pass",
+                    "Beach transfers"
+                ],
+                itinerary: [
+                    "Day 1: Arrival in Lisbon",
+                    "Day 2: Lisbon city tour",
+                    "Day 3: Day trip to Sintra",
+                    "Day 4: Beach day at Cascais",
+                    "Day 5: Free exploration & departure"
+                ],
+                durations: [
+                    {nights: 5, price: 499},
+                    {nights: 7, price: 699},
+                    {nights: 10, price: 899}
+                ]
+            }
+        };
+
+        // Get the package data
+        const packageData = packages[packageId] || packages['1'];
+        
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove loading message
+            const loadingMessage = document.getElementById('loading-message');
+            if (loadingMessage) {
+                loadingMessage.remove();
+            }
+            
+            // Update page title
+            document.title = `${packageData.name} Package | Holidae`;
+            
+            // Create package content
+            const packageContainer = document.getElementById('package-container');
+            
+            // Generate package HTML
+            const packageHTML = `
+                <div class="package-header">
+                    <h1>${packageData.name} Package</h1>
+                    <div class="package-meta">
+                        <span>★★★★☆ ${packageData.rating}/5 (247 reviews)</span>
+                        <span>${packageData.duration}</span>
+                        <span>${packageData.location}</span>
+                    </div>
+                </div>
+
+                <div class="package-content">
+                    <div class="package-main">
+                        <div class="image-gallery">
+                            <div class="main-image">
+                                <img src="${packageData.image}" alt="${packageData.name}" id="main-image">
+                            </div>
+                            <div class="thumbnails" id="thumbnail-container">
+                                <!-- Thumbnails will be added by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="package-details">
+                            <h2>Package Details</h2>
+                            <p>${packageData.description} Experience the best of ${packageData.location} with our carefully curated package.</p>
+                            
+                            <h3>What's Included:</h3>
+                            <ul>
+                                ${packageData.included.map(item => `<li>✓ ${item}</li>`).join('')}
+                            </ul>
+
+                            <h3>Itinerary</h3>
+                            <div class="itinerary">
+                                ${packageData.itinerary.map(day => {
+                                    const parts = day.split(':');
+                                    return `<div class="day"><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</div>`;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="booking-sidebar">
+                        <div class="booking-card">
+                            <div class="price-display">
+                                <div class="price-old">£${packageData.basePrice + 300}</div>
+                                <div class="price-current">£${packageData.basePrice}</div>
+                                <div class="price-note">per person</div>
+                            </div>
+
+                            <div class="booking-form">
+                                <div class="form-group">
+                                    <label>Start Date:</label>
+                                    <input type="date" id="start-date" min="${getTodayDate()}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Select Duration:</label>
+                                    <select id="duration">
+                                        ${packageData.durations.map(d => 
+                                            `<option value="${d.nights}">${d.nights} Nights (£${d.price})</option>`
+                                        ).join('')}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>End Date:</label>
+                                    <input type="text" id="end-date" readonly placeholder="Select start date and duration">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Travelers:</label>
+                                    <div class="traveler-counter">
+                                        <div class="counter-control">
+                                            <span>Adults (18+)</span>
+                                            <div class="counter">
+                                                <button class="counter-btn" type="button" data-type="adult" data-action="decrease">-</button>
+                                                <span id="adult-count">2</span>
+                                                <button class="counter-btn" type="button" data-type="adult" data-action="increase">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="counter-control">
+                                            <span>Children (0-17)</span>
+                                            <div class="counter">
+                                                <button class="counter-btn" type="button" data-type="child" data-action="decrease">-</button>
+                                                <span id="child-count">0</span>
+                                                <button class="counter-btn" type="button" data-type="child" data-action="increase">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="price-summary">
+                                    <h4>Price Summary</h4>
+                                    <div class="summary-row">
+                                        <span>Base Price:</span>
+                                        <span id="base-price">£${packageData.basePrice * 2}</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Taxes & Fees:</span>
+                                        <span id="taxes">£200</span>
+                                    </div>
+                                    <div class="summary-row total">
+                                        <span>Total:</span>
+                                        <span id="total-price">£${(packageData.basePrice * 2) + 200}</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-book" onclick="goToBooking()">
+                                    <i class="fas fa-lock"></i> Book Now
+                                </button>
+                                
+                                <div class="booking-info">
+                                    <p><i class="fas fa-info-circle"></i> Free cancellation up to 30 days</p>
+                                    <p><i class="fas fa-phone"></i> Need help? Call 020 7946 0958</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Insert package HTML
+            packageContainer.innerHTML = packageHTML;
+            
+            // Setup thumbnails
+            setupThumbnails(packageData);
+            
+            // Setup price calculator
+            setupPriceCalculator(packageData);
+            
+            // Setup mobile menu
+            setupMobileMenu();
+            
+            // Setup date calculation
+            setupDateCalculation();
+        });
+        
+        function setupThumbnails(packageData) {
+            const thumbnailContainer = document.getElementById('thumbnail-container');
+            const mainImage = document.getElementById('main-image');
+            
+            if (!thumbnailContainer || !packageData.thumbnails) return;
+            
+            thumbnailContainer.innerHTML = '';
+            
+            packageData.thumbnails.forEach((thumbSrc, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = thumbSrc;
+                thumb.alt = `${packageData.name} ${index + 1}`;
+                thumb.style.cursor = 'pointer';
+                thumb.style.border = index === 0 ? '2px solid #0077cc' : '2px solid transparent';
+                
+                thumb.addEventListener('click', function() {
+                    mainImage.src = thumbSrc.replace('w=200', 'w=1200');
+                    mainImage.alt = thumb.alt;
+                    
+                    // Update all thumbnails border
+                    document.querySelectorAll('.thumbnails img').forEach(t => {
+                        t.style.borderColor = 'transparent';
+                    });
+                    this.style.borderColor = '#0077cc';
+                });
+                
+                thumbnailContainer.appendChild(thumb);
+            });
+        }
+        
+        function setupPriceCalculator(packageData) {
+            const durationSelect = document.getElementById('duration');
+            const adultCount = document.getElementById('adult-count');
+            const childCount = document.getElementById('child-count');
+            
+            // Get all counter buttons
+            const counterButtons = document.querySelectorAll('.counter-btn');
+            
+            function updatePrice() {
+                const duration = parseInt(durationSelect.value);
+                const adults = parseInt(adultCount.textContent);
+                const children = parseInt(childCount.textContent);
+                
+                // Find price for selected duration
+                const durationObj = packageData.durations.find(d => d.nights === duration) || packageData.durations[0];
+                const pricePerAdult = durationObj.price;
+                const adultPrice = pricePerAdult * adults;
+                const childPrice = Math.round((pricePerAdult * 0.7) * children);
+                const baseTotal = adultPrice + childPrice;
+                const taxes = Math.round((baseTotal * 0.1) + 100);
+                const total = baseTotal + taxes;
+                
+                // Update display
+                const basePriceEl = document.getElementById('base-price');
+                const taxesEl = document.getElementById('taxes');
+                const totalPriceEl = document.getElementById('total-price');
+                
+                if (basePriceEl) basePriceEl.textContent = `£${baseTotal}`;
+                if (taxesEl) taxesEl.textContent = `£${taxes}`;
+                if (totalPriceEl) totalPriceEl.textContent = `£${total}`;
+            }
+            
+            // Event listeners for counter buttons
+// In setupPriceCalculator function, update the counter button event listeners:
+counterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const type = this.dataset.type;
+        const action = this.dataset.action;
+        const countElement = document.getElementById(`${type}-count`);
+        let count = parseInt(countElement.textContent);
+        
+        if (action === 'increase') {
+            count++;
+        } else if (action === 'decrease' && count > (type === 'adult' ? 1 : 0)) {
+            count--;
+        }
+        
+        countElement.textContent = count;
+        updatePrice();
+        updateBookingButton(); // Add this line
+    });
+});
+
+// Also update the duration change event listener:
+if (durationSelect) {
+    durationSelect.addEventListener('change', function() {
+        updatePrice();
+        calculateEndDate();
+        updateBookingButton(); // Add this line
+    });
+}
+
+// Update date change event listeners
+if (startDateInput) {
+    startDateInput.addEventListener('change', function() {
+        calculateEndDate();
+        updateBookingButton(); // Add this line
+    });
+}
+            
+            // Event listener for duration change
+            if (durationSelect) {
+                durationSelect.addEventListener('change', function() {
+                    updatePrice();
+                    calculateEndDate();
+                });
+            }
+            
+            // Initial price calculation
+            updatePrice();
+        }
+        
+        function setupDateCalculation() {
+            const startDateInput = document.getElementById('start-date');
+            const durationSelect = document.getElementById('duration');
+            const endDateInput = document.getElementById('end-date');
+            
+            if (startDateInput && durationSelect && endDateInput) {
+                // Set default start date to tomorrow
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                startDateInput.valueAsDate = tomorrow;
+                
+                // Calculate initial end date
+                calculateEndDate();
+                
+                // Add event listeners
+                startDateInput.addEventListener('change', calculateEndDate);
+                durationSelect.addEventListener('change', calculateEndDate);
+            }
+        }
+        
+        function calculateEndDate() {
+            const startDateInput = document.getElementById('start-date');
+            const durationSelect = document.getElementById('duration');
+            const endDateInput = document.getElementById('end-date');
+            
+            if (!startDateInput.value) {
+                endDateInput.value = "Select start date";
+                return;
+            }
+            
+            const startDate = new Date(startDateInput.value);
+            const duration = parseInt(durationSelect.value);
+            
+            if (isNaN(startDate.getTime()) || isNaN(duration)) {
+                endDateInput.value = "Invalid selection";
+                return;
+            }
+            
+            // Calculate end date (start date + nights)
+            const endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + duration);
+            
+            // Format date for display
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            endDateInput.value = endDate.toLocaleDateString('en-US', options);
+            
+            // Also update the booking button to pass dates
+            updateBookingButton();
+        }
+        
+        function getTodayDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        function updateBookingButton() {
+    const startDate = document.getElementById('start-date').value;
+    const duration = document.getElementById('duration').value;
+    const endDate = document.getElementById('end-date').value;
+    const adults = document.getElementById('adult-count').textContent;
+    const children = document.getElementById('child-count').textContent;
+    
+    // Get price details
+    const basePrice = document.getElementById('base-price').textContent.replace('£', '');
+    const taxes = document.getElementById('taxes').textContent.replace('£', '');
+    const totalPrice = document.getElementById('total-price').textContent.replace('£', '');
+    
+    // Store ALL data in sessionStorage
+    sessionStorage.setItem('selectedPackageId', packageId);
+    sessionStorage.setItem('holidayStartDate', startDate);
+    sessionStorage.setItem('holidayDuration', duration);
+    sessionStorage.setItem('holidayEndDate', endDate);
+    
+    // Store traveler counts
+    sessionStorage.setItem('bookingAdults', adults);
+    sessionStorage.setItem('bookingChildren', children);
+    
+    // Store price details
+    sessionStorage.setItem('bookingBasePrice', basePrice);
+    sessionStorage.setItem('bookingTaxes', taxes);
+    sessionStorage.setItem('bookingTotalPrice', totalPrice);
+    
+    // Store package details
+    sessionStorage.setItem('selectedPackageName', packageData.name);
+    sessionStorage.setItem('selectedPackageImage', packageData.image);
+    sessionStorage.setItem('selectedPackageIncluded', JSON.stringify(packageData.included));
+    
+    console.log('Booking data saved:', {
+        adults, children, duration, 
+        totalPrice: '£' + totalPrice,
+        basePrice: '£' + basePrice,
+        taxes: '£' + taxes
+    });
+}
+        
+        function goToBooking() {
+            const startDate = document.getElementById('start-date').value;
+            const duration = document.getElementById('duration').value;
+            
+            if (!startDate) {
+                alert("Please select a start date");
+                return;
+            }
+            
+            updateBookingButton();
+            window.location.href = `booking.html?package=${packageId}`;
+        }
+        
+        function setupMobileMenu() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target) && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
